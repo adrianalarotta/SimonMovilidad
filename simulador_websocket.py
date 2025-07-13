@@ -4,11 +4,9 @@ import json
 import random
 import time
 
-async def enviar_datos(device_id):
+async def enviar_datos(device_id, lat, lon, fuel_level):
     uri = "ws://localhost:8000/ws/ubicacion/"
     async with websockets.connect(uri) as websocket:
-        lat, lon = 4.60971, -74.08175
-        fuel_level = 16
         temperature = 25.0
 
         while True:
@@ -33,9 +31,9 @@ async def enviar_datos(device_id):
 
 async def main():
     tasks = [
-        enviar_datos("DEV-1234-XC54"),
-        enviar_datos("DEV-5678-YZ89"),
-        enviar_datos("DEV-9999-ZZ99")
+        enviar_datos("DEV-1234-XC54", 4.60971, -74.08175, 15),  
+        enviar_datos("DEV-5678-YZ89", 4.61100, -74.07700, 12),  
+        enviar_datos("DEV-9999-ZZ99", 4.60750, -74.08500, 10)    
     ]
     await asyncio.gather(*tasks)
 
